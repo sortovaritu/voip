@@ -33,9 +33,9 @@ def edit_sub(sid):
     Locations = Database.Get_Locations()
     print form.username.data
     if request.method == 'GET':                                                                #Get list of Locations
-        form.location.choices = ((l[0],l[1]) for l in Locations)          #Fill list of locations to SelectField 
+        form.location.choices = [(l[0],l[1]) for l in Locations]          #Fill list of locations to SelectField 
         form.location.default = rows[0][3]                                                                  #Chose user Location from list of locations in SelectField
-        #form.process()        
+        form.process()        
         form.sub_id.data = sid                                                                              #Get User ID (static field)
         form.username.data = rows[0][1]                                                                     #Get UserName
         form.extension.data = rows[0][2]
@@ -45,13 +45,10 @@ def edit_sub(sid):
         form.pmc_id.data = rows[0][7]
 
     if request.method == 'POST':
-        #form.location.choices = ((l[0],l[1]) for l in Locations)          #Fill list of locations to SelectField 
-        print Locations
-        #form.location.default = rows[0][3]                                                                  #Chose user Location from list of locations in SelectField
-        #form.process()
+        form.location.choices = [(l[0],l[1]) for l in Locations]          #Fill list of locations to SelectField 
         print form.username.data
         print form.username
-        if form.validate(): 
+        if form.validate():
             return redirect(url_for('login'))
 
     return render_template('edit_sub.html',name='Name',form=form)
