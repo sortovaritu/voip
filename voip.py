@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request
+from flask import Flask, url_for, render_template, request, redirect, flash
 
 
 import voip_db, forms
@@ -6,6 +6,7 @@ import voip_db, forms
 #conn.close()
 
 app = Flask(__name__,static_folder='bootstrap')
+app.secret_key = 'epam'
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -46,10 +47,13 @@ def edit_sub(sid):
 
     if request.method == 'POST':
         form.location.choices = [(l[0],l[1]) for l in Locations]          #Fill list of locations to SelectField 
-        print form.username.data
-        print form.username
         if form.validate():
-            return redirect(url_for('login'))
+            Database.Update_Sub(form)
+            flash('Updated Successfully')
+            return redirect('/subscribers')
+        else:
+            form.accept_changes.data = False                                #Reset Accept changes checkbox
+            print form.location.data
 
     return render_template('edit_sub.html',name='Name',form=form)
 
