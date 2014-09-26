@@ -64,9 +64,9 @@ class VoIP_DB:
     def Get_Sub_By_Field(self,field,value):
         cmd = 'SELECT *\
                 FROM [voip_db].[dbo].[users]\
-                where ' + field + ' LIKE ' + value
+                where ' + field + ' LIKE ' + '\'' + value + '\''
         #conn = pymssql.connect(host=, user=, password=, database=)
-
+        print cmd
         conn = pymssql.connect(DB_host, DB_user, DB_password, DB_database)
         cursor = conn.cursor()
         cursor.execute(cmd)

@@ -7,8 +7,16 @@ def user_exist_check(form, field):
     Database = voip_db.VoIP_DB()
     rows = Database.Get_Sub_By_Name(field.data)
     if rows != [] :                                     #User with such Name founded in DB
-        if str(rows[0][0]) != form.sub_id.data:         #User with such Name is not edited User (ID edited != ID inputed)
-            raise ValidationError('UserName already exist')
+#       if str(rows[0][0]) != form.sub_id.data:         #User with such Name is not edited User (ID edited != ID inputed)
+        raise ValidationError('UserName already exist')
+
+#def user_exist_check(form, field):
+#    Database = voip_db.VoIP_DB()
+#    rows = Database.Get_Sub_By_Name(field.data)
+#    if rows != [] :                                     #User with such Name founded in DB
+#        if str(rows[0][0]) != form.sub_id.data:         #User with such Name is not edited User (ID edited != ID inputed)
+#            raise ValidationError('UserName already exist')
+
 
 def extension_exist_check(form, field):
     Database = voip_db.VoIP_DB()
@@ -19,11 +27,22 @@ def extension_exist_check(form, field):
 
 class SubEditForm(Form):
     sub_id = TextField('ID', [validators.Required()])
-    username = TextField('Username', [validators.Required(),user_exist_check])
-    extension = TextField('Extension', [validators.Required(),extension_exist_check])
-    password = TextField('Password', [validators.Required(),validators.Length(max=10)])
+    username = TextField('Username*', [validators.Required(),user_exist_check])
+    extension = TextField('Extension*', [validators.Required(),extension_exist_check])
+    password = TextField('Password*', [validators.Required(),validators.Length(max=10)])
     vmpassword = TextField('Vm Password',[validators.Length(max=9)])
     location = SelectField(u'Location', coerce=int)
+    privateline = TextField('Private Line')
+    pmc_id = TextField('PMC ID',[validators.Length(max=19)])
+    accept_changes = BooleanField('Accept changes',[validators.Required()])
+
+
+class SubAddForm(Form):
+    username = TextField('Username*', [validators.Required(),user_exist_check])
+    extension = TextField('Extension*', [validators.Required(),extension_exist_check])
+    password = TextField('Password*', [validators.Required(),validators.Length(max=10)])
+    vmpassword = TextField('Vm Password',[validators.Length(max=9)])
+    location = SelectField(u'Location*', coerce=int)
     privateline = TextField('Private Line')
     pmc_id = TextField('PMC ID',[validators.Length(max=19)])
     accept_changes = BooleanField('Accept changes',[validators.Required()])
