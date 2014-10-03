@@ -1,70 +1,129 @@
 <html>
-	<head>
+
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Hello from Flask</title>
-		<style>
-      		body {
-        		padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      			}
+    <title>Hello from Flask</title>
+    <style>
+    body {
+        padding-top: 60px;
+        /* 60px to make the container go all the way to the bottom of the topbar */
+    }
     </style>
-    <style id="holderjs-style" type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;margin:0}</style>
-    <style>.carbonad{background-color:#393939;border:2px solid #E8E8E8;height:118px;line-height:1.2;width:305px}.carbonad-img{border:none;display:inline;float:left;height:100px;margin:9px;width:130px}.carbonad-text{color:#8A8A8A;display:inline-block;font-family:Verdana;font-size:11px;font-weight:400;height:60px;margin-left:9px;width:142px;padding-top:13px}.carbonad-text a{color:#FFF;text-decoration:none;text-transform:none;}.carbonad-tag{color:#6A6A6A;float:left;font-family:Verdana;font-size:11px;font-weight:400;margin-left:10px;margin-top:13px;text-align:center}.carbonad-tag a{color:#6A6A6A;text-decoration:none;font-weight:700}
+    <style id="holderjs-style" type="text/css">
+    .holderjs-fluid {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        font-family: sans-serif;
+        margin: 0
+    }
+    </style>
+    <style>
+    .carbonad {
+        background-color: #393939;
+        border: 2px solid #E8E8E8;
+        height: 118px;
+        line-height: 1.2;
+        width: 305px
+    }
+    .carbonad-img {
+        border: none;
+        display: inline;
+        float: left;
+        height: 100px;
+        margin: 9px;
+        width: 130px
+    }
+    .carbonad-text {
+        color: #8A8A8A;
+        display: inline-block;
+        font-family: Verdana;
+        font-size: 11px;
+        font-weight: 400;
+        height: 60px;
+        margin-left: 9px;
+        width: 142px;
+        padding-top: 13px
+    }
+    .carbonad-text a {
+        color: #FFF;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .carbonad-tag {
+        color: #6A6A6A;
+        float: left;
+        font-family: Verdana;
+        font-size: 11px;
+        font-weight: 400;
+        margin-left: 10px;
+        margin-top: 13px;
+        text-align: center
+    }
+    .carbonad-tag a {
+        color: #6A6A6A;
+        text-decoration: none;
+        font-weight: 700
+    }
     </style>
     <script>
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-146052-10']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-146052-10']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
     </script>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/bootstrap/css/docs.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-	</head>
+</head>
 
-	<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
-		<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">VoIP</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="/subscribers">Subscribers</a></li>
-              <li><a href="#about">Link</a></li>
-              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#contact">Link</a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!--/.nav-collapse -->
+<body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">VoIP</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="/subscribers">Subscribers</a>
+                        </li>
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#contact">Service</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/locations">Locations</a>
+                                </li>
+                                <li><a href="/pbx">PBX</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
         </div>
-      </div>
     </div>
 
- 		{% block content %}{% endblock %}
-    
-		
+    {% block content %}{% endblock %}
 
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
-      <!-- Le javascript
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
@@ -92,19 +151,20 @@
     <!-- Analytics
     ================================================== -->
     <script>
-      var _gauges = _gauges || [];
-      (function() {
-        var t   = document.createElement('script');
-        t.type  = 'text/javascript';
+    var _gauges = _gauges || [];
+    (function() {
+        var t = document.createElement('script');
+        t.type = 'text/javascript';
         t.async = true;
-        t.id    = 'gauges-tracker';
+        t.id = 'gauges-tracker';
         t.setAttribute('data-site-id', '4f0dc9fef5a1f55508000013');
         t.src = '//secure.gaug.es/track.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(t, s);
-      })();
+    })();
     </script>
 
 
-	</body>
+</body>
+
 </html>

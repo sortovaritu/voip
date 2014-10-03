@@ -1,9 +1,15 @@
-from flask import Flask, url_for, render_template, request, redirect, flash
+import logging
+
+
+from logging.handlers import RotatingFileHandler
+
+
+
+from flask import Flask, url_for, render_template, request, redirect, flash, logging
 
 
 import voip_db, forms
 
-#conn.close()
 
 app = Flask(__name__,static_folder='bootstrap')
 app.secret_key = 'epam'
@@ -15,6 +21,11 @@ def index():
     else:
         return render_template('sub_db.html',name='Name')
 
+
+
+
+
+
 @app.route('/subscribers', methods=['POST', 'GET'])
 def sub_db():
     if request.method == 'GET':
@@ -22,8 +33,17 @@ def sub_db():
     else:
         Database = voip_db.VoIP_DB()
         user_name = request.form['SearchName']
+        app.logger.info( 'Search Name Request: ' + user_name )
+        try:
+            tbl = Database.Get_Sub_By_Name(user_name)
+            return render_template('sub_db.html',name='Name',rows=tbl)
+        except Exception:
+            flash('[voip_db.py]: Communication with Database failed')
+            return redirect('/subscribers', code=303)
 
-        return render_template('sub_db.html',name='Name',rows=Database.Get_Sub_By_Name(user_name))
+
+
+
 
 
 @app.route('/subscribers/edit/<sid>', methods=['POST', 'GET'])
@@ -76,11 +96,19 @@ def add_sub():
 
 
 
-
+@app.route('/locations', methods=['POST', 'GET'])
+def locations():
+    Database = voip_db.VoIP_DB()
+    return render_template('locations.html',rows=Database.Get_Locations_List())
 
 
 
 
 if __name__ == '__main__':
+    formatter = logging.Formatter("[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+    handler = RotatingFileHandler('foo.log', maxBytes=10000000, backupCount=1)
+    handler.setLevel(logging.DEBUG)
+    handler.setFormatter(formatter)
+    app.logger.addHandler(handler)
     app.run(host='0.0.0.0',debug=True)
 raw_input()

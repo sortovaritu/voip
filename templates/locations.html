@@ -1,0 +1,75 @@
+{% extends "hello.html" %} {% block content %}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="span2 offset9">
+            <a href="/locations/add" type="button pull-right" class="btn btn-primary">Add Location</a>
+        </div>
+    </div>
+
+
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>
+                    Location
+                </th>
+                <th>
+                    PBX
+                </th>
+                <th>
+                    Info
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+
+            <tr>
+
+                <td>
+                    {{ row[1] }}
+                </td>
+                <td>
+                    {{ row[2] }}
+                </td>
+                <td>
+                    {{ row[3] }}
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								Action
+								<span class="caret"></span>
+							</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/locations/edit/{{ row[0] }}"><i class="icon-pencil"></i> Edit</a>
+                            </li>
+                            <li><a href="#"><i class="icon-trash"></i> Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    </tbody>
+    </table>
+</div>
+{% endblock %}
