@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="span3 offset9">
-            <a href="/locations/add" type="button pull-right" class="btn btn-primary pull-right">Add Location</a>
+            <a href="/pbx/add" type="button pull-right" class="btn btn-primary pull-right">Add PBX</a>
         </div>
     </div>
 
@@ -28,13 +28,25 @@
         <thead>
             <tr>
                 <th>
-                    Location
+                    Server
                 </th>
                 <th>
-                    PBX
+                    Fqdn
                 </th>
                 <th>
-                    Info
+                    MAC
+                </th>
+                <th>
+                    IP
+                </th>
+                <th>
+                    External IP
+                </th>
+                <th>
+                    root Password
+                </th>
+                <th>
+                    maint Password
                 </th>
             </tr>
         </thead>
@@ -44,13 +56,25 @@
             <tr>
 
                 <td>
-                    {{ row[1] }}
+                    <small>{{ row[1] }}</small>
                 </td>
                 <td>
-                    {{ row[2] }}
+                    <small>{{ row[2] }}</small>
                 </td>
                 <td>
-                    {{ row[3] }}
+                    <small>{{ row[3] }}</small>
+                </td>
+                <td>
+                    <small>{{ row[4] }}</small>
+                </td>
+                <td>
+                    <small>{{ row[9] }}</small>
+                </td>
+                <td>
+                    <small>{{ row[10] }}</small>
+                </td>
+                <td>
+                    <small>{{ row[11] }}</small>
                 </td>
                 <td>
                     <div class="btn-group">
