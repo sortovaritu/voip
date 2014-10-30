@@ -3,11 +3,14 @@
 	{% block content %}
 	
 	<div class="container">
+	<div class="page-header">
+            <h1>Edit Location</h1>
+    </div>
 		{% if form.errors %}
 		    <!--<ul class="errors">-->
 		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
 		            {% for error in field_errors %}
-		            	<div class="alert alert-error">
+		            	<div class="alert alert-danger">
 		                	<li>{{ form[field_name].label }}: {{ error }}</li>
 		                </div>
 		            {% endfor %}
@@ -16,10 +19,10 @@
 		{% endif %}
 				<form method="POST" action="">
 				  <dl>
-				  	<div>{{ form.loc_id.label }}{{ form.loc_id(readonly=true) }}</div>
-				    <div>{{ form.location.label }}{{ form.location() }}</div>
-				    <div>{{ form.pbx.label }}{{ form.pbx() }}</div>
-				    <div>{{ form.info.label }}{{ form.info() }}</div>
+				  	<div class="input-group input-group-sm">{{ form.loc_id.label }}{{ form.loc_id(readonly=true, class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.location.label }}{{ form.location(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.pbx.label }}{{ form.pbx(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.info.label }}{{ form.info(class="form-control") }}</div>
 				  </dl>
 				  <p><button type="submit" class="btn btn-primary">Save Changes</button>
 				</form>

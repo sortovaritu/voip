@@ -145,6 +145,15 @@ class VoIP_DB:
             conn.commit()
 
 
+    def Delete_Sub(self, sid):
+        cmd = 'DELETE FROM [voip_new].[dbo].[users] where ID = %s' % (sid)
+        with get_connection(cmd) as conn:
+            cursor = conn.cursor()
+            flask.current_app.logger.info('SQL DELETE request: Delete_Sub')
+            cursor.execute(cmd)
+            conn.commit()
+
+
 
     def Update_Loc(self, form):
         cmd = 'UPDATE [voip_new].[dbo].[locations]\
@@ -186,6 +195,14 @@ class VoIP_DB:
 
 
 
+    def Delete_Location(self, lid):
+        cmd = 'DELETE FROM [voip_new].[dbo].[locations] where [ID] = %s' % (lid)
+        with get_connection(cmd) as conn:
+            cursor = conn.cursor()
+            flask.current_app.logger.info('SQL DELETE request: Delete_Location')
+            cursor.execute(cmd)
+            conn.commit()
+
 
 
 
@@ -196,7 +213,7 @@ class VoIP_DB:
                     ,[voip_new].[dbo].[PBX].PBXName\
                     ,[Info]\
                     FROM [voip_new].[dbo].[locations]\
-                    left join [voip_new].[dbo].[pbx] ON [voip_new].[dbo].[locations].PBX = [voip_new].[dbo].[PBX].ID'
+                    left join [voip_new].[dbo].[pbx] ON [voip_new].[dbo].[locations].PBX = [voip_new].[dbo].[PBX].ID ORDER BY [Location]'
         ret = []
         with get_connection(cmd) as conn:
             try:
@@ -265,3 +282,64 @@ class VoIP_DB:
             except Exception as e:
                 flask.current_app.logger.error(e.args)
         return ret
+
+    def Get_PBX_By_ID(self,ID):
+        cmd = 'SELECT * FROM [voip_new].[dbo].[pbx] where [ID] = ' + ID
+        ret = []
+        with get_connection(cmd) as conn:
+            try:
+                ret = send_select(conn,cmd,self.Get_Locations_List.__name__)
+            except Exception as e:
+                flask.current_app.logger.error(e.args)
+        return ret
+
+
+    def Get_PBX_By_Fqdn(self,Fqdn):
+        cmd = 'SELECT [ID] FROM [voip_new].[dbo].[pbx] where [PBXName] = \'' + Fqdn + '\''
+        ret = []
+        with get_connection(cmd) as conn:
+            try:
+                ret = send_select(conn,cmd,self.Get_Locations_List.__name__)
+            except Exception as e:
+                flask.current_app.logger.error(e.args)
+        return ret
+
+
+    def Update_Pbx(self, form):
+        cmd = 'UPDATE [voip_new].[dbo].[pbx]\
+                SET ServerName = \'%s\',\
+                    PBXName = \'%s\',\
+                    MAC = \'%s\',\
+                    IP = \'%s\',\
+                    Mask = \'%s\',\
+                    Gateway = \'%s\',\
+                    DNS1 = \'%s\',\
+                    DNS2 = \'%s\',\
+                    ExternalIP = \'%s\',\
+                    rootPassword = \'%s\',\
+                    maintPassword = \'%s\'\
+                where ID = %s' % (form.server.data, form.fqdn.data, form.mac.data, form.ip.data, form.mask.data, form.gateway.data, form.dns1.data, form.dns2.data, form.ext_ip.data, form.root_pass.data, form.maint_pass.data, form.pbx_id.data)
+        with get_connection(cmd) as conn:
+            cursor = conn.cursor()
+            flask.current_app.logger.info('SQL UPDATE request: Update_Pbx')
+            cursor.execute(cmd)
+            conn.commit()
+
+
+    def Add_Pbx(self, form):
+        cmd = 'INSERT INTO [voip_new].[dbo].[pbx]\
+                VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (form.server.data, form.fqdn.data, form.mac.data, form.ip.data, form.mask.data, form.gateway.data, form.dns1.data, form.dns2.data, form.ext_ip.data, form.root_pass.data, form.maint_pass.data)
+        with get_connection(cmd) as conn:
+            cursor = conn.cursor()
+            flask.current_app.logger.info('SQL INSERT request: Update_Loc')
+            cursor.execute(cmd)
+            conn.commit()
+
+
+    def Delete_Pbx(self, pid):
+        cmd = 'DELETE FROM [voip_new].[dbo].[pbx] where [ID] = %s' % (pid)
+        with get_connection(cmd) as conn:
+            cursor = conn.cursor()
+            flask.current_app.logger.info('SQL DELETE request: Delete_Pbx')
+            cursor.execute(cmd)
+            conn.commit()

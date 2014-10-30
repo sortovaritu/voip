@@ -1,0 +1,37 @@
+
+	{% extends "hello.html" %}
+	{% block content %}
+	
+	<div class="container">
+	<div class="page-header">
+            <h1>Add PBX</h1>
+    </div>
+		{% if form.errors %}
+		    <!--<ul class="errors">-->
+		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+		            {% for error in field_errors %}
+		            	<div class="alert alert-danger">
+		                	<li>{{ form[field_name].label }}: {{ error }}</li>
+		                </div>
+		            {% endfor %}
+		        {% endfor %}
+		    <!--</ul>-->
+		{% endif %}
+				<form method="POST" action="">
+				  <dl>
+				    <div class="input-group input-group-sm">{{ form.server.label }}{{ form.server(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.fqdn.label }}{{ form.fqdn(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.mac.label }}{{ form.mac(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.ip.label }}{{ form.ip(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.mask.label }}{{ form.mask(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.gateway.label }}{{ form.gateway(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.dns1.label }}{{ form.dns1(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.dns2.label }}{{ form.dns2(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.ext_ip.label }}{{ form.ext_ip(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.root_pass.label }}{{ form.root_pass(class="form-control") }}</div>
+				    <div class="input-group input-group-sm">{{ form.maint_pass.label }}{{ form.maint_pass(class="form-control") }}</div>
+				  </dl>
+				  <p><button type="submit" class="btn btn-primary">Save Changes</button>
+				</form>
+	</div>
+	{% endblock %}

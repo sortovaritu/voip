@@ -32,14 +32,18 @@ def extension_exist_check(form, field):
 def location_exist_check(form, field):
     Database = voip_db.VoIP_DB()
     rows = Database.Get_Location_By_Name(field.data)
-    print field.data
-    print rows
     if rows != [] :                                     #User with such Extension founded in DB
         if str(rows[0][0]) != form.loc_id.data:         #User with such Extension is not edited User (ID edited != ID inputed)
             raise ValidationError('Location already exist')
 
 
 
+def pbx_exist_check(form, field):
+    Database = voip_db.VoIP_DB()
+    rows = Database.Get_PBX_By_Fqdn(field.data)
+    if rows != [] :                                     #User with such Extension founded in DB
+        if str(rows[0][0]) != form.pbx_id.data:         #User with such Extension is not edited User (ID edited != ID inputed)
+            raise ValidationError('PBX already exist')
 
 
 
@@ -77,3 +81,31 @@ class LocAddForm(Form):
     location = TextField('Location*', [validators.Required(),location_exist_check])
     pbx = SelectField(u'PBX*', coerce=int)
     info = TextAreaField('Info')
+
+
+class PbxEditForm(Form):
+    pbx_id = TextField('ID', [validators.Required()])
+    server = TextField('Server*', [validators.Required()])
+    fqdn = TextField('PBX Fqdn*', [validators.Required(), pbx_exist_check])
+    mac = TextField('MAC')
+    ip = TextField('IP*', [validators.Required()])
+    mask = TextField('Mask*', [validators.Required()])
+    gateway = TextField('Gateway*', [validators.Required()])
+    dns1 = TextField('DNS 1*', [validators.Required()])
+    dns2 = TextField('DNS 2*', [validators.Required()])
+    ext_ip = TextField('External IP*', [validators.Required()])
+    root_pass = TextField('root Password*', [validators.Required()])
+    maint_pass = TextField('maint Password*', [validators.Required()])
+
+class PbxAddForm(Form):
+    server = TextField('Server*', [validators.Required()])
+    fqdn = TextField('PBX Fqdn*', [validators.Required(), pbx_exist_check])
+    mac = TextField('MAC')
+    ip = TextField('IP*', [validators.Required()])
+    mask = TextField('Mask*', [validators.Required()])
+    gateway = TextField('Gateway*', [validators.Required()])
+    dns1 = TextField('DNS 1*', [validators.Required()])
+    dns2 = TextField('DNS 2*', [validators.Required()])
+    ext_ip = TextField('External IP*', [validators.Required()])
+    root_pass = TextField('root Password*', [validators.Required()])
+    maint_pass = TextField('maint Password*', [validators.Required()])

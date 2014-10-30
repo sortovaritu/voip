@@ -1,9 +1,19 @@
-{% extends "hello.html" %} {% block content %}
+{% extends "hello.html" %} {% set active_page = "service" %} {% block content %}
 
 
 <div class="container">
 
+    <div class="page-header">
 
+        <div class="row">
+            <div class="col-md-7">
+                <h1>List Of Locations</h1>
+            </div>
+            <div class="col-md-5">
+                <a href="/locations/add" type="button pull-right" class="btn btn-primary pull-right">Add Location</a>
+            </div>
+        </div>
+    </div>
     {% with messages = get_flashed_messages() %} {% if messages %}
     <div class="alert alert-success">
         {% for message in messages %}
@@ -11,15 +21,6 @@
         {% endfor %}
     </div>
     {% endif %} {% endwith %}
-
-
-    <div class="row">
-        <div class="span3 offset9">
-            <a href="/locations/add" type="button pull-right" class="btn btn-primary pull-right">Add Location</a>
-        </div>
-    </div>
-
-
 
 
 
@@ -35,6 +36,9 @@
                 </th>
                 <th>
                     Info
+                </th>
+                <th>
+                    Action
                 </th>
             </tr>
         </thead>
@@ -54,24 +58,50 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								Action
-								<span class="caret"></span>
-							</a>
+                        <button class="btn btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/locations/edit/{{ row[0] }}"><i class="icon-pencil"></i> Edit</a>
                             </li>
-                            <li><a href="#"><i class="icon-trash"></i> Delete</a>
+                            <li><a class="delete" href="#Delete" data-target="#Delete" data-toggle="modal" data-id={{ row[0] }}><i class="icon-trash"></i> Delete</a>
                             </li>
                         </ul>
                     </div>
                 </td>
+
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
+    <div id="Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Delete confirmation</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Are you shure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <a href="#" class="btn btn-primary Confirm" name="Confirm" id="Confirm">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".delete").click(function() { // Click to only happen on announce links
+            $(".modal-footer #Confirm").attr('href', "/locations/delete/" + ($(this).data('id')));
+        });
+    });
+    </script>
 
     </tbody>
     </table>
